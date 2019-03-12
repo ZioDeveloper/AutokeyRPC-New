@@ -1,0 +1,32 @@
+﻿@model AutokeyRPC.Models.HomeModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>&nbsp;</h2>
+@using (Html.BeginForm())
+{
+
+    <p></p>
+    <p></p>
+    <div class="form-horizontal">
+
+        <div class="form-group form-group-sm">
+
+            <h2>Login utente</h2>
+
+
+            Codice perito : @Html.TextBox("SearchString", null, new { style = "width:80px" })
+                            @Html.ValidationMessage("SearchString")
+            <input type="submit" value="Login" />
+
+            <br><br>
+
+            Location :  @Html.DropDownList("SearchLocation", (IEnumerable <SelectListItem>)ViewData["RPC_Cantieri_vw"])
+
+
+        </div>
+    </div>
+}
+

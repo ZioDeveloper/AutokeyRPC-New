@@ -1,0 +1,58 @@
+﻿@model AutokeyRPC.Models.RPC_Telai
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+<div class="jumbotron" style="font-size:14px">
+    @using (Html.BeginForm())
+    {
+        @Html.HiddenFor(model => model.ID)
+        @Html.HiddenFor(model => model.IDCantiere)
+        @Html.HiddenFor(model => model.IDLotto)
+        @Html.HiddenFor(model => model.IDOperatore)
+
+
+        @Html.AntiForgeryToken()
+    <div class="row" style="text-align:left">
+        <div class="col-md-4">
+            <p>
+                Telaio : <br />
+                @Html.TextBoxFor(model => model.Telaio, new { @readonly = true, @class = "frmText solaLettura" })
+                @Html.ValidationMessageFor(model => model.Telaio, "", new { @class = "text-danger" })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <p>
+                Data inserimento :  <br />
+                @Html.TextBoxFor(model => model.InsertDate, new { @readonly = true, @class = "frmText solaLettura" })
+                @Html.ValidationMessageFor(model => model.IsFinished, "", new { @class = "text-danger" })
+            </p>
+        </div>
+        <div class="col-md-4">
+            <p>
+                Terminato :  <br />
+                @Html.EditorFor(model => model.IsFinished)
+                @Html.ValidationMessageFor(model => model.IsFinished, "", new { @class = "text-danger" })
+            </p>
+        </div>
+        
+        
+        @*@Html.TextBox("DescrServizio", "C001")*@
+
+
+
+    </div>
+        <input class="btn btn-primary btn-lg" type="submit" value="Aggiorna" />
+
+        <div class="form-group" style="visibility:hidden;height:0px;">
+                @*@Html.EditorFor(model => model.ID)
+                @Html.EditorFor(model => model.IDCantiere, new { name = "SearchResult" })
+                @Html.EditorFor(model => model.IDLotto)
+                @Html.EditorFor(model => model.IDOperatore)*@
+            <input type="hidden" name="SearchResult" >
+            </div>
+    }
+</div>
