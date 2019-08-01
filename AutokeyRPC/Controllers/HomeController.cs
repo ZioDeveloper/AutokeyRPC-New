@@ -170,7 +170,7 @@ namespace AutokeyRPC.Controllers
                                     //            && s.IDOperatore.ToString() == SearchString
                                     //            select s;
                                     var telai = from s in db.RPC_Telai
-                                                where s.IDCantiere.ToString() == SearchLocation && s.IDLotto.ToString() == SearchLotto
+                                                where s.IDCantiere.ToString() == SearchLocation //&& s.IDLotto.ToString() == SearchLotto
                                                 select s;
                                     model.RPC_Telai = telai.ToList();
                                     return View("VinList", model);
@@ -287,7 +287,7 @@ namespace AutokeyRPC.Controllers
             {
 
                 var telai = from s in db.RPC_Telai
-                            where s.IDCantiere.ToString() == mySearch && s.IDLotto.ToString() == myLotto
+                            where s.IDCantiere.ToString() == mySearch //&& s.IDLotto.ToString() == myLotto
                             && s.Telaio.Contains(SearchTelaio)
                             select s;
                 model.RPC_Telai = telai.ToList();
@@ -297,14 +297,14 @@ namespace AutokeyRPC.Controllers
             else if (Scelta1 == "TUTTE")
             {
                 var telai = from s in db.RPC_Telai
-                            where s.IDCantiere.ToString() == mySearch && s.IDLotto.ToString() == myLotto
+                            where s.IDCantiere.ToString() == mySearch //&& s.IDLotto.ToString() == myLotto
                             select s;
                 model.RPC_Telai = telai.ToList();
             }
             else if (Scelta1 == "CHIUSE")
             {
                 var telai = from s in db.RPC_Telai
-                            where s.IDCantiere.ToString() == mySearch && s.IDLotto.ToString() == myLotto
+                            where s.IDCantiere.ToString() == mySearch //&& s.IDLotto.ToString() == myLotto
                             && s.IsFinished == true
                             select s;
                 model.RPC_Telai = telai.ToList();
@@ -312,7 +312,7 @@ namespace AutokeyRPC.Controllers
             else if (Scelta1 == "APERTE")
             {
                 var telai = from s in db.RPC_Telai
-                            where s.IDCantiere.ToString() == mySearch && s.IDLotto.ToString() == myLotto
+                            where s.IDCantiere.ToString() == mySearch// && s.IDLotto.ToString() == myLotto
                             && s.IsFinished == false
                             select s;
                 model.RPC_Telai = telai.ToList();
@@ -320,7 +320,7 @@ namespace AutokeyRPC.Controllers
             else 
             {
                 var telai = from s in db.RPC_Telai
-                            where s.IDCantiere.ToString() == mySearch && s.IDLotto.ToString() == myLotto
+                            where s.IDCantiere.ToString() == mySearch //&& s.IDLotto.ToString() == myLotto
                             select s;
                 model.RPC_Telai = telai.ToList();
             }

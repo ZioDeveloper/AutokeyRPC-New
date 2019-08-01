@@ -3,6 +3,16 @@
 @{
     ViewBag.Title = "Elenco telai";
 }
+@*<script src="~/Scripts/jquery-1.12.4.js"></script>*@
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/jszip.min.js"></script>
+<script src="~/Scripts/dataTables.buttons.min.js"></script>
+<script src="~/Scripts/buttons.html5.min.js"></script>
+<script src="~/Scripts/jquery-ui.min.js"></script>
+<link href="~/Content/jquery.dataTables.min.css" rel="stylesheet" />
+
+@Styles.Render("~/Content/mygrid.css")
 
 <h3><u>Situazione telai</u></h3>
 
@@ -116,60 +126,108 @@
 }
 
 
-<table class="table">
-
-    <tr>
-        @*<td>Finito</td>*@
-        <td>Telaio</td>
-        <td>Data</td>
-        <td>Dettagli</td>
-        <td>Foto</td>
-        <td>Files</td>
-
-    </tr>
-    @foreach (var item in Model.RPC_Telai)
-    {
+<table id="tblGrid" class="display">
+    <thead>
         <tr>
-            @*<td>
-                    @Html.DisplayFor(modelItem => item.IsFinished)
-                </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.Telaio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.InsertDate)
-            </td>
-            <td>
-                @*@Html.ActionLink("Create New", "Insert")*@
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "searchImg" })
+            @*<td>Finito</td>*@
+            <td>Telaio</td>
+            <td>Data</td>
+            <td>Dettagli</td>
+            <td>Foto</td>
+            <td>Files</td>
 
-                @*@Html.ActionLink("Edit", "Edit", new { id = item.ID })
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })*@
-            </td>
-            @*<td>
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { @class = "deleteImg" })
-                </td>*@
-            <td>
-                @Html.ActionLink("Foto", "Image", new { id = item.ID }, new { @class = "photoImg" })
-            </td>
-            <td>
-                @Html.ActionLink("Foto", "Images", new { id = item.ID }, new { @class = "uplImg" })
-            </td>
         </tr>
-    }
+    </thead>
+    <tbody>
+        @foreach (var item in Model.RPC_Telai)
+        {
+            <tr>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.IsFinished)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telaio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InsertDate)
+                </td>
+                <td>
+                    @*@Html.ActionLink("Create New", "Insert")*@
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "searchImg" })
 
+                    @*@Html.ActionLink("Edit", "Edit", new { id = item.ID })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })*@
+                </td>
+                @*<td>
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { @class = "deleteImg" })
+                    </td>*@
+                <td>
+                    @Html.ActionLink("Foto", "Image", new { id = item.ID }, new { @class = "photoImg" })
+                </td>
+                <td>
+                    @Html.ActionLink("Foto", "Images", new { id = item.ID }, new { @class = "uplImg" })
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
 <p>
     @*@Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |*@
     @Html.ActionLink("Torna alla pagina di Login", "Index")
 </p>
 
-@section scripts {
-    <script>
+<script>
 
-                                            //document.getElementById('Scelta1').click();
-                                            //alert('Pippo');
 
-    </script>
-}
+    $(document).ready(function () {
+        gridDataTableView("lista telai.xls");
+    });
 
+    //gridDataTableView = function (fname) {
+    //    $('#tblGrid').dataTable({
+    //        "bFilter": false,
+    //        "bLengthChange": false, "bPaginate": true, "bInfo": true,
+    //        dom: 'Bfrtip',
+    //        "order": [[0, 'desc'], [1, 'desc']],
+    //        buttons: [{ extend: 'excelHtml5', text: 'Export data Excel', className: 'link_button', title: fname }]
+    //    });
+    //gridDataTableView = function (fname) {
+    //    $('#tblGrid').dataTable({
+    //        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+    //        "pageLength": 25, "pagingType": "full_numbers",
+    //        "bFilter": false,
+    //        "bLengthChange": false, "bPaginate": true, "bInfo": true,
+    //        dom: 'Bfrtip',
+    //        "order": [[0, 'desc'], [1, 'desc']],
+    //        buttons: []
+    //    });
+    gridDataTableView = function (fname) {
+        $('#tblGrid').dataTable({
+            dom: 'Bfrtip',
+            buttons: [{
+                extend: 'excelHtml5',
+                customize: function (xlsx) {
+                    var sheet = xlsx.xl.worksheets['sheet1.xml'];
+
+                    // Loop over the cells in column `C`
+                    $('row c[r^="C"]', sheet).each(function () {
+                        // Get the value
+                        if ($('is t', this).text() == 'New York') {
+                            $(this).attr('s', '20');
+                        }
+                    });
+                }
+            }],
+            select: true,
+            searching: true,
+            lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "Tutti    "]],
+
+            "bFilter": false,
+            "bLengthChange": true,
+            "bPaginate": true,
+            "bInfo": true,
+            "order": [[0, 'desc'], [1, 'desc']]
+        });
+    }
+
+</script>
