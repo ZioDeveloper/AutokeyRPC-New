@@ -110,6 +110,25 @@
           <Property Name="IDCantiere" Type="int" Nullable="false" />
           <Property Name="Descr" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="RPC_Danni">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descr" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="RPC_DanniXTelaio">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDTelaio" Type="int" Nullable="false" />
+          <Property Name="IDParte" Type="int" />
+          <Property Name="IDDanno" Type="int" />
+          <Property Name="IDGravita" Type="int" />
+          <Property Name="InsertDate" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="NoteDanno" Type="varchar" MaxLength="250" />
+        </EntityType>
         <EntityType Name="RPC_FotoXTelaio">
           <Key>
             <PropertyRef Name="ID" />
@@ -119,6 +138,13 @@
           <Property Name="NomeFile" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="InsertDate" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="RPC_Gravita">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descr" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="RPC_Lotti">
           <Key>
             <PropertyRef Name="ID" />
@@ -126,6 +152,13 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Descrizione" Type="nvarchar" MaxLength="50" />
           <Property Name="InsertDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RPC_Parti">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descr" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="RPC_Telai">
           <Key>
@@ -240,6 +273,54 @@ warning 6002: The table/view 'Autokey.dbo.RPC_telai_vw' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_RPC_DanniXTelaio_RPC_Gravita">
+          <End Role="RPC_Gravita" Type="Self.RPC_Gravita" Multiplicity="0..1" />
+          <End Role="RPC_DanniXTelaio" Type="Self.RPC_DanniXTelaio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RPC_Gravita">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RPC_DanniXTelaio">
+              <PropertyRef Name="IDGravita" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RPC_DanniXTelaio_RPC_Parti">
+          <End Role="RPC_Parti" Type="Self.RPC_Parti" Multiplicity="0..1" />
+          <End Role="RPC_DanniXTelaio" Type="Self.RPC_DanniXTelaio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RPC_Parti">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RPC_DanniXTelaio">
+              <PropertyRef Name="IDParte" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RPC_DanniXTelaio_RPC_Telai">
+          <End Role="RPC_Telai" Type="Self.RPC_Telai" Multiplicity="1" />
+          <End Role="RPC_DanniXTelaio" Type="Self.RPC_DanniXTelaio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RPC_Telai">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RPC_DanniXTelaio">
+              <PropertyRef Name="IDTelaio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RPC_DanniXTelaio_RPC_TipoDano">
+          <End Role="RPC_Danni" Type="Self.RPC_Danni" Multiplicity="0..1" />
+          <End Role="RPC_DanniXTelaio" Type="Self.RPC_DanniXTelaio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RPC_Danni">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RPC_DanniXTelaio">
+              <PropertyRef Name="IDDanno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RPC_FotoXTelaio_RPC_Telai">
           <End Role="RPC_Telai" Type="Self.RPC_Telai" Multiplicity="1" />
           <End Role="RPC_FotoXTelaio" Type="Self.RPC_FotoXTelaio" Multiplicity="*" />
@@ -272,8 +353,12 @@ warning 6035: The relationship 'FK_RPC_Telai_RPC_Cantieri' has columns that are 
           <EntitySet Name="AUK_tecnici" EntityType="Self.AUK_tecnici" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PKT_Operatori" EntityType="Self.PKT_Operatori" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RPC_Cantieri" EntityType="Self.RPC_Cantieri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RPC_Danni" EntityType="Self.RPC_Danni" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RPC_DanniXTelaio" EntityType="Self.RPC_DanniXTelaio" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RPC_FotoXTelaio" EntityType="Self.RPC_FotoXTelaio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RPC_Gravita" EntityType="Self.RPC_Gravita" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RPC_Lotti" EntityType="Self.RPC_Lotti" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RPC_Parti" EntityType="Self.RPC_Parti" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RPC_Telai" EntityType="Self.RPC_Telai" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RPC_Cantieri_vw" EntityType="Self.RPC_Cantieri_vw" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -319,6 +404,22 @@ warning 6035: The relationship 'FK_RPC_Telai_RPC_Cantieri' has columns that are 
           <AssociationSet Name="FK_RPC_Cantieri_RPC_Cantieri" Association="Self.FK_RPC_Cantieri_RPC_Cantieri">
             <End Role="RPC_Cantieri" EntitySet="RPC_Cantieri" />
             <End Role="RPC_Cantieri1" EntitySet="RPC_Cantieri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RPC_DanniXTelaio_RPC_Gravita" Association="Self.FK_RPC_DanniXTelaio_RPC_Gravita">
+            <End Role="RPC_Gravita" EntitySet="RPC_Gravita" />
+            <End Role="RPC_DanniXTelaio" EntitySet="RPC_DanniXTelaio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RPC_DanniXTelaio_RPC_Parti" Association="Self.FK_RPC_DanniXTelaio_RPC_Parti">
+            <End Role="RPC_Parti" EntitySet="RPC_Parti" />
+            <End Role="RPC_DanniXTelaio" EntitySet="RPC_DanniXTelaio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RPC_DanniXTelaio_RPC_Telai" Association="Self.FK_RPC_DanniXTelaio_RPC_Telai">
+            <End Role="RPC_Telai" EntitySet="RPC_Telai" />
+            <End Role="RPC_DanniXTelaio" EntitySet="RPC_DanniXTelaio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RPC_DanniXTelaio_RPC_TipoDano" Association="Self.FK_RPC_DanniXTelaio_RPC_TipoDano">
+            <End Role="RPC_Danni" EntitySet="RPC_Danni" />
+            <End Role="RPC_DanniXTelaio" EntitySet="RPC_DanniXTelaio" />
           </AssociationSet>
           <AssociationSet Name="FK_RPC_FotoXTelaio_RPC_Telai" Association="Self.FK_RPC_FotoXTelaio_RPC_Telai">
             <End Role="RPC_Telai" EntitySet="RPC_Telai" />
@@ -386,6 +487,26 @@ warning 6035: The relationship 'FK_RPC_Telai_RPC_Cantieri' has columns that are 
             <End Role="RPC_Cantieri1" EntitySet="RPC_Cantieri" />
           </AssociationSet>
           <EntitySet Name="RPC_Cantieri_vw" EntityType="AutokeyModel.RPC_Cantieri_vw" />
+          <EntitySet Name="RPC_Danni" EntityType="AutokeyModel.RPC_Danni" />
+          <EntitySet Name="RPC_DanniXTelaio" EntityType="AutokeyModel.RPC_DanniXTelaio" />
+          <EntitySet Name="RPC_Gravita" EntityType="AutokeyModel.RPC_Gravita" />
+          <EntitySet Name="RPC_Parti" EntityType="AutokeyModel.RPC_Parti" />
+          <AssociationSet Name="FK_RPC_DanniXTelaio_RPC_TipoDano" Association="AutokeyModel.FK_RPC_DanniXTelaio_RPC_TipoDano">
+            <End Role="RPC_Danni" EntitySet="RPC_Danni" />
+            <End Role="RPC_DanniXTelaio" EntitySet="RPC_DanniXTelaio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RPC_DanniXTelaio_RPC_Gravita" Association="AutokeyModel.FK_RPC_DanniXTelaio_RPC_Gravita">
+            <End Role="RPC_Gravita" EntitySet="RPC_Gravita" />
+            <End Role="RPC_DanniXTelaio" EntitySet="RPC_DanniXTelaio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RPC_DanniXTelaio_RPC_Parti" Association="AutokeyModel.FK_RPC_DanniXTelaio_RPC_Parti">
+            <End Role="RPC_Parti" EntitySet="RPC_Parti" />
+            <End Role="RPC_DanniXTelaio" EntitySet="RPC_DanniXTelaio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RPC_DanniXTelaio_RPC_Telai" Association="AutokeyModel.FK_RPC_DanniXTelaio_RPC_Telai">
+            <End Role="RPC_Telai" EntitySet="RPC_Telai" />
+            <End Role="RPC_DanniXTelaio" EntitySet="RPC_DanniXTelaio" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="AUK_cantieri">
           <Key>
@@ -546,6 +667,7 @@ warning 6035: The relationship 'FK_RPC_Telai_RPC_Cantieri' has columns that are 
           <Property Name="LastUpdateTime" Type="DateTime" Precision="3" />
           <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Condizione" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="RPC_DanniXTelaio" Relationship="AutokeyModel.FK_RPC_DanniXTelaio_RPC_Telai" FromRole="RPC_Telai" ToRole="RPC_DanniXTelaio" />
         </EntityType>
         <Association Name="FK_RPC_Telai_RPC_Lotti">
           <End Type="AutokeyModel.RPC_Lotti" Role="RPC_Lotti" Multiplicity="1" />
@@ -659,6 +781,94 @@ warning 6035: The relationship 'FK_RPC_Telai_RPC_Cantieri' has columns that are 
           <Property Name="IDCantiere" Type="Int32" Nullable="false" />
           <Property Name="ragioneSociale" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="RPC_Danni">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="RPC_DanniXTelaio" Relationship="AutokeyModel.FK_RPC_DanniXTelaio_RPC_TipoDano" FromRole="RPC_Danni" ToRole="RPC_DanniXTelaio" />
+        </EntityType>
+        <EntityType Name="RPC_DanniXTelaio">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDTelaio" Type="Int32" Nullable="false" />
+          <Property Name="IDParte" Type="Int32" />
+          <Property Name="IDDanno" Type="Int32" />
+          <Property Name="IDGravita" Type="Int32" />
+          <Property Name="InsertDate" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="NoteDanno" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="RPC_Danni" Relationship="AutokeyModel.FK_RPC_DanniXTelaio_RPC_TipoDano" FromRole="RPC_DanniXTelaio" ToRole="RPC_Danni" />
+          <NavigationProperty Name="RPC_Gravita" Relationship="AutokeyModel.FK_RPC_DanniXTelaio_RPC_Gravita" FromRole="RPC_DanniXTelaio" ToRole="RPC_Gravita" />
+          <NavigationProperty Name="RPC_Parti" Relationship="AutokeyModel.FK_RPC_DanniXTelaio_RPC_Parti" FromRole="RPC_DanniXTelaio" ToRole="RPC_Parti" />
+          <NavigationProperty Name="RPC_Telai" Relationship="AutokeyModel.FK_RPC_DanniXTelaio_RPC_Telai" FromRole="RPC_DanniXTelaio" ToRole="RPC_Telai" />
+        </EntityType>
+        <EntityType Name="RPC_Gravita">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="RPC_DanniXTelaio" Relationship="AutokeyModel.FK_RPC_DanniXTelaio_RPC_Gravita" FromRole="RPC_Gravita" ToRole="RPC_DanniXTelaio" />
+        </EntityType>
+        <EntityType Name="RPC_Parti">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="RPC_DanniXTelaio" Relationship="AutokeyModel.FK_RPC_DanniXTelaio_RPC_Parti" FromRole="RPC_Parti" ToRole="RPC_DanniXTelaio" />
+        </EntityType>
+        <Association Name="FK_RPC_DanniXTelaio_RPC_TipoDano">
+          <End Type="AutokeyModel.RPC_Danni" Role="RPC_Danni" Multiplicity="0..1" />
+          <End Type="AutokeyModel.RPC_DanniXTelaio" Role="RPC_DanniXTelaio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RPC_Danni">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RPC_DanniXTelaio">
+              <PropertyRef Name="IDDanno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RPC_DanniXTelaio_RPC_Gravita">
+          <End Type="AutokeyModel.RPC_Gravita" Role="RPC_Gravita" Multiplicity="0..1" />
+          <End Type="AutokeyModel.RPC_DanniXTelaio" Role="RPC_DanniXTelaio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RPC_Gravita">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RPC_DanniXTelaio">
+              <PropertyRef Name="IDGravita" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RPC_DanniXTelaio_RPC_Parti">
+          <End Type="AutokeyModel.RPC_Parti" Role="RPC_Parti" Multiplicity="0..1" />
+          <End Type="AutokeyModel.RPC_DanniXTelaio" Role="RPC_DanniXTelaio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RPC_Parti">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RPC_DanniXTelaio">
+              <PropertyRef Name="IDParte" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RPC_DanniXTelaio_RPC_Telai">
+          <End Type="AutokeyModel.RPC_Telai" Role="RPC_Telai" Multiplicity="1" />
+          <End Type="AutokeyModel.RPC_DanniXTelaio" Role="RPC_DanniXTelaio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RPC_Telai">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RPC_DanniXTelaio">
+              <PropertyRef Name="IDTelaio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -836,6 +1046,43 @@ warning 6035: The relationship 'FK_RPC_Telai_RPC_Cantieri' has columns that are 
               <MappingFragment StoreEntitySet="RPC_Cantieri_vw">
                 <ScalarProperty Name="ragioneSociale" ColumnName="ragioneSociale" />
                 <ScalarProperty Name="IDCantiere" ColumnName="IDCantiere" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RPC_Danni">
+            <EntityTypeMapping TypeName="AutokeyModel.RPC_Danni">
+              <MappingFragment StoreEntitySet="RPC_Danni">
+                <ScalarProperty Name="Descr" ColumnName="Descr" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RPC_DanniXTelaio">
+            <EntityTypeMapping TypeName="AutokeyModel.RPC_DanniXTelaio">
+              <MappingFragment StoreEntitySet="RPC_DanniXTelaio">
+                <ScalarProperty Name="NoteDanno" ColumnName="NoteDanno" />
+                <ScalarProperty Name="InsertDate" ColumnName="InsertDate" />
+                <ScalarProperty Name="IDGravita" ColumnName="IDGravita" />
+                <ScalarProperty Name="IDDanno" ColumnName="IDDanno" />
+                <ScalarProperty Name="IDParte" ColumnName="IDParte" />
+                <ScalarProperty Name="IDTelaio" ColumnName="IDTelaio" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RPC_Gravita">
+            <EntityTypeMapping TypeName="AutokeyModel.RPC_Gravita">
+              <MappingFragment StoreEntitySet="RPC_Gravita">
+                <ScalarProperty Name="Descr" ColumnName="Descr" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RPC_Parti">
+            <EntityTypeMapping TypeName="AutokeyModel.RPC_Parti">
+              <MappingFragment StoreEntitySet="RPC_Parti">
+                <ScalarProperty Name="Descr" ColumnName="Descr" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

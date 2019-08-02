@@ -1,0 +1,66 @@
+﻿@model AutokeyRPC.Models.RPC_DanniXTelaio
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>RPC_DanniXTelaio</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.InsertDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InsertDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NoteDanno)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NoteDanno)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RPC_Danni.Descr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RPC_Danni.Descr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RPC_Gravita.Descr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RPC_Gravita.Descr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RPC_Parti.Descr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RPC_Parti.Descr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RPC_Telai.IDOperatore)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RPC_Telai.IDOperatore)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

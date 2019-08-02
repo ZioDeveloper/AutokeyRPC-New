@@ -167,6 +167,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\DanniXTelaioController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TelaiController.cs" />
     <Compile Include="Global.asax.cs">
@@ -203,10 +204,22 @@
     <Compile Include="Models\RPC_Cantieri_vw.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\RPC_Danni.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RPC_DanniXTelaio.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\RPC_FotoXTelaio.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\RPC_Gravita.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\RPC_Lotti.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RPC_Parti.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RPC_Telai.cs">
@@ -332,6 +345,12 @@
     <Content Include="Views\Telai\Index.cshtml" />
     <Content Include="Views\EditNew.cshtml" />
     <Content Include="Views\Home\InsertDetails.cshtml" />
+    <Content Include="Views\Home\Details.cshtml" />
+    <Content Include="Views\DanniXTelaio\Create.cshtml" />
+    <Content Include="Views\DanniXTelaio\Delete.cshtml" />
+    <Content Include="Views\DanniXTelaio\Details.cshtml" />
+    <Content Include="Views\DanniXTelaio\Edit.cshtml" />
+    <Content Include="Views\DanniXTelaio\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

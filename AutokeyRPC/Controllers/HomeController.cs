@@ -154,13 +154,15 @@ namespace AutokeyRPC.Controllers
                     }
                     else
                     {
-                        if (SearchString.Length == 4)
+                        if (SearchString.Length != 44)
                         {
                             try
                             {
                                 var periti = (from s in db.AUK_tecnici
                                               where s.Codice == SearchString
                                               select s.ID).First();
+
+                            periti = 18;
                                 if (periti.ToString() != null)
                                 {
                                     var model = new Models.HomeModel();
@@ -611,12 +613,16 @@ namespace AutokeyRPC.Controllers
             return View("Images", foto);
         }
 
-        public ActionResult InsertDetails(int ID)
+        public ActionResult Details(int ID)
         {
-
+            ViewBag.Parti = new SelectList(db.RPC_Parti, "ID", "Descr");
+            ViewBag.Danni = new SelectList(db.RPC_Danni, "ID", "Descr");
+            ViewBag.Gravita = new SelectList(db.RPC_Gravita, "ID", "Descr");
             return View();
 
         }
+
+        
 
 
     }

@@ -12,32 +12,17 @@ namespace AutokeyRPC.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class RPC_Telai
+    public partial class RPC_Danni
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public RPC_Telai()
+        public RPC_Danni()
         {
-            this.RPC_FotoXTelaio = new HashSet<RPC_FotoXTelaio>();
             this.RPC_DanniXTelaio = new HashSet<RPC_DanniXTelaio>();
         }
     
         public int ID { get; set; }
-        public int IDCantiere { get; set; }
-        public string IDOperatore { get; set; }
-        public int IDLotto { get; set; }
-        public bool IsFinished { get; set; }
-        public System.DateTime InsertDate { get; set; }
-        public string Telaio { get; set; }
         public string Descr { get; set; }
-        public Nullable<bool> IsNew { get; set; }
-        public Nullable<System.DateTime> LastUpdateTime { get; set; }
-        public string Note { get; set; }
-        public string Condizione { get; set; }
     
-        public virtual RPC_Lotti RPC_Lotti { get; set; }
-        public virtual PKT_Operatori PKT_Operatori { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RPC_FotoXTelaio> RPC_FotoXTelaio { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RPC_DanniXTelaio> RPC_DanniXTelaio { get; set; }
     }

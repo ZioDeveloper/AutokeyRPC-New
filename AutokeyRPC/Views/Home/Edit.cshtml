@@ -90,96 +90,96 @@
 
 
     @Html.AntiForgeryToken()
-<div class="row" style="text-align:left">
+    <div class="row" style="text-align:left">
 
-    <div class="col-md-6">
-        <table border="0">
-            <tr>
-                <td style="font-weight:bold">Dati telaio</td>
-            </tr>
-            <tr>
+        <div class="col-md-6">
+            <table border="0">
+                <tr>
+                    <td style="font-weight:bold">Dati telaio</td>
+                </tr>
+                <tr>
+                    <td>
+                        Telaio :
+
+                        @Html.TextBoxFor(model => model.Telaio, new { @readonly = true, @class = "frmText solaLettura" })
+                        @Html.ValidationMessageFor(model => model.Telaio, "", new { @class = "text-danger" })
+                    </td>
+                    <td>
+                        Data inserimento :
+
+                        @Html.TextBoxFor(model => model.InsertDate, new { @readonly = true, @class = "frmText solaLettura" })
+                        @Html.ValidationMessageFor(model => model.IsFinished, "", new { @class = "text-danger" })
+                    </td>
+
+                </tr>
+
+
+            </table>
+
+
+        </div>
+
+        <br />
+
+        <div class="col-md-6">
+            <table border="0">
+                <tr>
+                    <td style="font-weight:bold">Assegna luogo telaio</td>
+                </tr>
+                <tr>
+                    <td class="bianco">@Html.RadioButtonFor(model => model.IDCantiere, "1800") Vercelli</td>
+                </tr>
+                <tr>
+                    <td class="bianco">@Html.RadioButtonFor(model => model.IDCantiere, "1804") PROGETTO CARROZZERIA </td>
+                </tr>
+                <tr>
+                    <td class="bianco">@Html.RadioButtonFor(model => model.IDCantiere, "1805") LEVER TOUCH</td>
+                </tr>
+                <tr><td>&nbsp;</td> </tr>
+            </table>
+
+
+        </div>
+
+        <div class="col-md-6">
+            <table border="0">
+                <tr>
+                    <td style="font-weight:bold">Condizione del telaio</td>
+                </tr>
+                <tr>
+                    <td style="color:green">@Html.RadioButtonFor(model => model.Condizione, "OK") Ok</td>
+                    <td style="color:red">@Html.RadioButtonFor(model => model.Condizione, "KO") Ko </td>
+
+                </tr>
                 <td>
-                    Telaio :
-
-                    @Html.TextBoxFor(model => model.Telaio, new { @readonly = true, @class = "frmText solaLettura" })
-                    @Html.ValidationMessageFor(model => model.Telaio, "", new { @class = "text-danger" })
-                </td>
-                <td>
-                    Data inserimento :
-
-                    @Html.TextBoxFor(model => model.InsertDate, new { @readonly = true, @class = "frmText solaLettura" })
+                    @Html.EditorFor(model => model.IsFinished) Perizia terminata
                     @Html.ValidationMessageFor(model => model.IsFinished, "", new { @class = "text-danger" })
                 </td>
 
-            </tr>
-            
+                <tr><td>&nbsp;</td> </tr>
+            </table>
 
-        </table>
+
+        </div>
+
+
+
+        <div class="col-md-6">
+            Note
+            <p>
+
+                @Html.TextAreaFor(model => model.Note, new { style = "width: 150px; height:100px;" })
+            </p>
+        </div>
+
+
+
+
+        @*@Html.TextBox("DescrServizio", "C001")*@
+
 
 
     </div>
-
-   <br />
-
-    <div class="col-md-6">
-        <table border="0">
-            <tr>
-                <td style="font-weight:bold">Assegna luogo telaio</td>
-            </tr>
-            <tr>
-                <td class="bianco">@Html.RadioButtonFor(model => model.IDCantiere, "1800") Vercelli</td>
-            </tr>
-            <tr>
-                <td class="bianco">@Html.RadioButtonFor(model => model.IDCantiere, "1804") PROGETTO CARROZZERIA </td>
-            </tr>
-            <tr>
-                <td class="bianco">@Html.RadioButtonFor(model => model.IDCantiere, "1805") LEVER TOUCH</td>
-            </tr>
-            <tr><td>&nbsp;</td> </tr>
-        </table>
-
-
-    </div>
-
-    <div class="col-md-6">
-        <table border="0">
-            <tr>
-                <td style="font-weight:bold">Condizione del telaio</td>
-            </tr>
-            <tr>
-                <td style="color:green">@Html.RadioButtonFor(model => model.Condizione, "OK") Ok</td>
-                <td style="color:red">@Html.RadioButtonFor(model => model.Condizione, "KO") Ko </td>
-
-            </tr>
-            <td>
-                @Html.EditorFor(model => model.IsFinished) Perizia terminata
-                @Html.ValidationMessageFor(model => model.IsFinished, "", new { @class = "text-danger" })
-            </td>
-
-            <tr><td>&nbsp;</td> </tr>
-        </table>
-
-
-    </div>
-
-    
-
-    <div class="col-md-6">
-        Note
-        <p>
-
-            @Html.TextAreaFor(model => model.Note, new { style = "width: 150px; height:100px;" })
-        </p>
-    </div>
-
-
-
-
-    @*@Html.TextBox("DescrServizio", "C001")*@
-
-
-
-</div>
     <input class="btn btn-primary btn-lg" type="submit" value="Aggiorna" />
 
     <div class="form-group" style="visibility:hidden;height:0px;">
@@ -190,7 +190,8 @@
         <input type="hidden" name="SearchResult">
     </div>
 
-    @Html.ActionLink("Dettagli danno ", "InsertDetails", new { id = myID })
+    @Html.ActionLink("Dettagli danno ", "Create","DanniXTelaio", new{ idtelaio = myID },null);
+    
 
 }
 
