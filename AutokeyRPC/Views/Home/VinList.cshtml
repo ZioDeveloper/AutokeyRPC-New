@@ -20,7 +20,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;
 @Html.ActionLink("Lista x stampa...", "PrintList", "Home")
 &nbsp;&nbsp;&nbsp;&nbsp;
-@Html.ActionLink("Importa telai", "Index", "Telai")
+@*@Html.ActionLink("Importa telai", "Index", "Telai")*@
 <br />
 
 @using (Html.BeginForm("DoRefresh", "Home", FormMethod.Get))
@@ -183,21 +183,21 @@
    
     gridDataTableView = function (fname) {
         $('#tblGrid').dataTable({
-            dom: 'Bfrtip',
-            buttons: [{
-                extend: 'excelHtml5',
-                customize: function (xlsx) {
-                    var sheet = xlsx.xl.worksheets['sheet1.xml'];
+            //dom: 'Bfrtip',
+            //buttons: [{
+            //    extend: 'excelHtml5',
+            //    customize: function (xlsx) {
+            //        var sheet = xlsx.xl.worksheets['sheet1.xml'];
 
-                    // Loop over the cells in column `C`
-                    $('row c[r^="C"]', sheet).each(function () {
-                        // Get the value
-                        if ($('is t', this).text() == 'New York') {
-                            $(this).attr('s', '20');
-                        }
-                    });
-                }
-            }],
+            //        // Loop over the cells in column `C`
+            //        $('row c[r^="C"]', sheet).each(function () {
+            //            // Get the value
+            //            if ($('is t', this).text() == 'New York') {
+            //                $(this).attr('s', '20');
+            //            }
+            //        });
+            //    }
+            //}],
             select: true,
             searching: true,
             lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "Tutti    "]],
