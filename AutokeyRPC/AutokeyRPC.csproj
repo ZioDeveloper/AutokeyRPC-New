@@ -212,6 +212,9 @@
     <Compile Include="Models\RPC_Telai.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\RPC_telai_vw.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -222,6 +225,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.min.js" />
     <Content Include="Content\dataTables.buttons.min.js" />
+    <Content Include="Content\delete.png" />
     <Content Include="Content\image.png" />
     <None Include="Content\jquery-3.3.1.intellisense.js" />
     <Content Include="Content\jquery-3.3.1.js" />
@@ -326,6 +330,8 @@
     <Content Include="Views\Home\Images.cshtml" />
     <Content Include="Views\Home\Image.cshtml" />
     <Content Include="Views\Telai\Index.cshtml" />
+    <Content Include="Views\EditNew.cshtml" />
+    <Content Include="Views\Home\InsertDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

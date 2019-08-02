@@ -27,11 +27,12 @@ namespace AutokeyRPC.Models
     
         public virtual DbSet<RPC_Cantieri> RPC_Cantieri { get; set; }
         public virtual DbSet<AUK_cantieri> AUK_cantieri { get; set; }
-        public virtual DbSet<RPC_Cantieri_vw> RPC_Cantieri_vw { get; set; }
         public virtual DbSet<AUK_tecnici> AUK_tecnici { get; set; }
         public virtual DbSet<RPC_Lotti> RPC_Lotti { get; set; }
         public virtual DbSet<RPC_Telai> RPC_Telai { get; set; }
         public virtual DbSet<PKT_Operatori> PKT_Operatori { get; set; }
         public virtual DbSet<RPC_FotoXTelaio> RPC_FotoXTelaio { get; set; }
+        public virtual DbSet<RPC_telai_vw> RPC_telai_vw { get; set; }
+        public virtual DbSet<RPC_Cantieri_vw> RPC_Cantieri_vw { get; set; }
     }
 }

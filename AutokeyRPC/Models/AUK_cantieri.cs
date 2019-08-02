@@ -18,7 +18,6 @@ namespace AutokeyRPC.Models
         public AUK_cantieri()
         {
             this.RPC_Cantieri = new HashSet<RPC_Cantieri>();
-            this.RPC_Telai = new HashSet<RPC_Telai>();
         }
     
         public int ID { get; set; }
@@ -81,7 +80,5 @@ namespace AutokeyRPC.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RPC_Cantieri> RPC_Cantieri { get; set; }
         public virtual AUK_tecnici AUK_tecnici { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RPC_Telai> RPC_Telai { get; set; }
     }
 }

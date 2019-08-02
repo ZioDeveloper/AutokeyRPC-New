@@ -169,10 +169,12 @@ namespace AutokeyRPC.Controllers
                                     //            where s.IDCantiere.ToString() == SearchLocation
                                     //            && s.IDOperatore.ToString() == SearchString
                                     //            select s;
-                                    var telai = from s in db.RPC_Telai
+                                    var telai = from s in db.RPC_telai_vw
                                                 where s.IDCantiere.ToString() == SearchLocation //&& s.IDLotto.ToString() == SearchLotto
+                                                || s.IDCantiere.ToString() == "1804"
+                                                || s.IDCantiere.ToString() == "1805"
                                                 select s;
-                                    model.RPC_Telai = telai.ToList();
+                                    model.RPC_Telai_vw = telai.ToList();
                                     return View("VinList", model);
                                 }
                                 else
@@ -216,19 +218,29 @@ namespace AutokeyRPC.Controllers
 
         //    return View();
         //}
-
+       
        
 
         public ActionResult Edit(int ID)
         {
             RPC_Telai telai = db.RPC_Telai.Find(ID);
+            ViewBag.IDCantiere = new SelectList(db.RPC_Cantieri_vw, "IDCantiere", "ragioneSociale", new { telai.IDCantiere });
+            //ViewBag.IDLotto = new SelectList(db.RPC_Lotti, "ID", "Descrizione");
+            //ViewBag.ID = new SelectList(db.RPC_Telai, "ID", "IDOperatore");
+
+            //ViewBag.IDOperatore = new SelectList(db.PKT_Operatori, "ID", "ID");
+
+            //ViewBag.Testing = new SelectList(GetLotti(), "Text", "Value");
 
             return View(telai);
         }
 
+        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = " ID, IDCantiere, IDOperatore, IDLotto, IsFinished, InsertDate, Telaio, Descr")] RPC_Telai rPC_Telai,string SearchResult)
+        public ActionResult Edit([Bind(Include = " ID, IDCantiere, IDOperatore, IDLotto, IsFinished, InsertDate, Telaio, " +
+                                                 " LastUpdateTime,Condizione, Note")] RPC_Telai rPC_Telai,string SearchResult)
         {
             if (ModelState.IsValid)
             {
@@ -237,6 +249,8 @@ namespace AutokeyRPC.Controllers
                     rPC_Telai.IDOperatore = myIDOperatore.ToUpper();
                 else
                     rPC_Telai.IDOperatore = null;
+
+                rPC_Telai.LastUpdateTime = DateTime.Now;
 
                 db.Entry(rPC_Telai).State = EntityState.Modified;
                 db.SaveChanges();
@@ -258,6 +272,7 @@ namespace AutokeyRPC.Controllers
 
 
                 //return View("VinList", model);
+                //return View(rPC_Telai);
                 return RedirectToAction("DoRefresh", "Home");
 
 
@@ -286,43 +301,55 @@ namespace AutokeyRPC.Controllers
             if (SearchTelaio != null && SearchTelaio != "")
             {
 
-                var telai = from s in db.RPC_Telai
+                var telai = from s in db.RPC_telai_vw
                             where s.IDCantiere.ToString() == mySearch //&& s.IDLotto.ToString() == myLotto
+                            || s.IDCantiere.ToString() == "1804"
+                            || s.IDCantiere.ToString() == "1805"
                             && s.Telaio.Contains(SearchTelaio)
                             select s;
-                model.RPC_Telai = telai.ToList();
+                model.RPC_Telai_vw = telai.ToList();
 
             }
 
             else if (Scelta1 == "TUTTE")
             {
-                var telai = from s in db.RPC_Telai
+                var telai = from s in db.RPC_telai_vw
                             where s.IDCantiere.ToString() == mySearch //&& s.IDLotto.ToString() == myLotto
+                            || s.IDCantiere.ToString() == "1804"
+                            || s.IDCantiere.ToString() == "1805"
                             select s;
-                model.RPC_Telai = telai.ToList();
+                model.RPC_Telai_vw = telai.ToList();
             }
             else if (Scelta1 == "CHIUSE")
             {
-                var telai = from s in db.RPC_Telai
+                var telai = from s in db.RPC_telai_vw
+                            where s.IsFinished == true 
                             where s.IDCantiere.ToString() == mySearch //&& s.IDLotto.ToString() == myLotto
-                            && s.IsFinished == true
+                           || s.IDCantiere.ToString() == "1804"
+                            || s.IDCantiere.ToString() == "1805"
+                           
                             select s;
-                model.RPC_Telai = telai.ToList();
+                model.RPC_Telai_vw = telai.ToList();
             }
             else if (Scelta1 == "APERTE")
             {
-                var telai = from s in db.RPC_Telai
+                var telai = from s in db.RPC_telai_vw
+                            where s.IsFinished == false
                             where s.IDCantiere.ToString() == mySearch// && s.IDLotto.ToString() == myLotto
-                            && s.IsFinished == false
+                            || s.IDCantiere.ToString() == "1804"
+                            || s.IDCantiere.ToString() == "1805"
+
                             select s;
-                model.RPC_Telai = telai.ToList();
+                model.RPC_Telai_vw = telai.ToList();
             }
             else 
             {
-                var telai = from s in db.RPC_Telai
+                var telai = from s in db.RPC_telai_vw
                             where s.IDCantiere.ToString() == mySearch //&& s.IDLotto.ToString() == myLotto
+                            || s.IDCantiere.ToString() == "1804"
+                            || s.IDCantiere.ToString() == "1805"
                             select s;
-                model.RPC_Telai = telai.ToList();
+                model.RPC_Telai_vw = telai.ToList();
             }
 
 
@@ -557,6 +584,37 @@ namespace AutokeyRPC.Controllers
             FormsAuthentication.SignOut();
 
             return Redirect("http://192.168.20.1/Utente/Login");
+
+        }
+
+        public ActionResult DeleteSingleFotoPratica(int id, string picName)
+        {
+
+            var sql = @"DELETE FROM RPC_FotoXTelaio WHERE ID = @IDFoto";
+            int myRecordCounter = db.Database.ExecuteSqlCommand(sql, new SqlParameter("@IDFoto", id));
+
+            string fullPath = Request.MapPath("~/UploadedFiles/" + picName);
+            if (System.IO.File.Exists(fullPath))
+            {
+                System.IO.File.Delete(fullPath);
+            }
+
+            var model = new Models.HomeModel();
+            var foto = from s in db.RPC_FotoXTelaio
+                       where s.ID.ToString() == id.ToString()
+                       select s;
+            model.RPC_FotoXTelaio = foto.ToList();
+
+           
+
+
+            return View("Images", foto);
+        }
+
+        public ActionResult InsertDetails(int ID)
+        {
+
+            return View();
 
         }
 

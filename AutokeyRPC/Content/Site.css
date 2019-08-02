@@ -29,7 +29,7 @@ textarea {
 }
 .deleteImg {
     display: block;
-    background: url( deleteFile.png ) no-repeat;
+    background: url( delete.png ) no-repeat;
     width: 32px;
     height: 32px;
     text-indent: -9999px; /*hides the link text*/

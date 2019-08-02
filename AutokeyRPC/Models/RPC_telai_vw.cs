@@ -12,14 +12,21 @@ namespace AutokeyRPC.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class RPC_Cantieri
+    public partial class RPC_telai_vw
     {
         public int ID { get; set; }
         public int IDCantiere { get; set; }
+        public string IDOperatore { get; set; }
+        public int IDLotto { get; set; }
+        public string Telaio { get; set; }
         public string Descr { get; set; }
-    
-        public virtual AUK_cantieri AUK_cantieri { get; set; }
-        public virtual RPC_Cantieri RPC_Cantieri1 { get; set; }
-        public virtual RPC_Cantieri RPC_Cantieri2 { get; set; }
+        public bool IsFinished { get; set; }
+        public System.DateTime InsertDate { get; set; }
+        public Nullable<bool> IsNew { get; set; }
+        public Nullable<int> NumFoto { get; set; }
+        public Nullable<System.DateTime> LastUpdateTime { get; set; }
+        public string Note { get; set; }
+        public string Cantiere { get; set; }
+        public string Condizione { get; set; }
     }
 }

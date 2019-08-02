@@ -116,7 +116,7 @@
             </table>
         }
 
-        Telaio : @Html.TextBox("SearchTelaio", null, new { style = "width:80px", @onchange = "this.form.submit();" })
+        @*Telaio : @Html.TextBox("SearchTelaio", null, new { style = "width:80px", @onchange = "this.form.submit();" })*@
 
         <input type="submit" value="Refresh" class="btn btn-default" />
 
@@ -129,45 +129,42 @@
 <table id="tblGrid" class="display">
     <thead>
         <tr>
-            @*<td>Finito</td>*@
             <td>Telaio</td>
-            <td>Data</td>
+            <td>Cantiere</td>
             <td>Dettagli</td>
-            <td>Foto</td>
-            <td>Files</td>
+            <td>Scatta foto</td>
+            <td>Numero Foto</td>
+            <td>Stato</td>
+            <td>Chiuso (si/no)</td>
 
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.RPC_Telai)
+        @foreach (var item in Model.RPC_Telai_vw)
         {
-            <tr>
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.IsFinished)
-                    </td>*@
-                <td>
-                    @Html.DisplayFor(modelItem => item.Telaio)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.InsertDate)
-                </td>
-                <td>
-                    @*@Html.ActionLink("Create New", "Insert")*@
-                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "searchImg" })
-
-                    @*@Html.ActionLink("Edit", "Edit", new { id = item.ID })
-                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })*@
-                </td>
-                @*<td>
-                        @Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { @class = "deleteImg" })
-                    </td>*@
-                <td>
-                    @Html.ActionLink("Foto", "Image", new { id = item.ID }, new { @class = "photoImg" })
-                </td>
-                <td>
-                    @Html.ActionLink("Foto", "Images", new { id = item.ID }, new { @class = "uplImg" })
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Telaio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cantiere)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "searchImg" })
+            </td>
+            <td>
+                @Html.ActionLink("Foto", "Image", new { id = item.ID }, new { @class = "photoImg" })
+            </td>
+            <td>
+                <a href="@Url.Action("Images", "Home", new { id = item.ID })">@Html.DisplayFor(modelItem => item.NumFoto)</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Condizione)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsFinished)
+            </td>
+        </tr>
         }
     </tbody>
 </table>
@@ -183,24 +180,7 @@
         gridDataTableView("lista telai.xls");
     });
 
-    //gridDataTableView = function (fname) {
-    //    $('#tblGrid').dataTable({
-    //        "bFilter": false,
-    //        "bLengthChange": false, "bPaginate": true, "bInfo": true,
-    //        dom: 'Bfrtip',
-    //        "order": [[0, 'desc'], [1, 'desc']],
-    //        buttons: [{ extend: 'excelHtml5', text: 'Export data Excel', className: 'link_button', title: fname }]
-    //    });
-    //gridDataTableView = function (fname) {
-    //    $('#tblGrid').dataTable({
-    //        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-    //        "pageLength": 25, "pagingType": "full_numbers",
-    //        "bFilter": false,
-    //        "bLengthChange": false, "bPaginate": true, "bInfo": true,
-    //        dom: 'Bfrtip',
-    //        "order": [[0, 'desc'], [1, 'desc']],
-    //        buttons: []
-    //    });
+   
     gridDataTableView = function (fname) {
         $('#tblGrid').dataTable({
             dom: 'Bfrtip',

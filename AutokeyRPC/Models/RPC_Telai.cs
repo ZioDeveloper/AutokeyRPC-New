@@ -28,11 +28,12 @@ namespace AutokeyRPC.Models
         public System.DateTime InsertDate { get; set; }
         public string Telaio { get; set; }
         public string Descr { get; set; }
+        public Nullable<bool> IsNew { get; set; }
+        public Nullable<System.DateTime> LastUpdateTime { get; set; }
+        public string Note { get; set; }
+        public string Condizione { get; set; }
     
-        public virtual AUK_cantieri AUK_cantieri { get; set; }
         public virtual RPC_Lotti RPC_Lotti { get; set; }
-        public virtual RPC_Telai RPC_Telai1 { get; set; }
-        public virtual RPC_Telai RPC_Telai2 { get; set; }
         public virtual PKT_Operatori PKT_Operatori { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RPC_FotoXTelaio> RPC_FotoXTelaio { get; set; }
