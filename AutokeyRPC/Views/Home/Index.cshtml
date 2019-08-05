@@ -3,9 +3,13 @@
 @{
     ViewBag.Title = "Index";
 }
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-
-
+<script>
+    $(document).ready(function () {
+        $("#myForm").submit();
+    });
+</script>
 
 @*<h2>&nbsp;</h2>*@
 @using (Html.BeginForm())
@@ -38,9 +42,10 @@
                     <tr><td>&nbsp; </td> </tr>*@
                 <tr>
                     <td>
-                        Codice perito : @Html.TextBox("SearchString", null, new { style = "width:80px" })
+                        @*Codice perito : @Html.TextBox("SearchString", null, new { style = "width:80px", @Value = "nico" })*@
+                        Codice perito : @Html.TextBox("SearchString", null, new { style = "width:80px", @Value = Request.QueryString["usr"] })
                         @Html.ValidationMessage("SearchString")
-                        <input type="submit" value="Login" />
+                        <input type="submit" name="go" value="Login" />
                     </td>
                     <td>
                         @*@Html.ValidationMessage("SearchString")
@@ -68,4 +73,5 @@
         </div>
     </div>
 }
+
 

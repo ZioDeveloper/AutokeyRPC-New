@@ -16,134 +16,59 @@ namespace AutokeyRPC.Controllers
     public class HomeController : Controller
     {
         private AutokeyEntities db = new AutokeyEntities();
-        
-        
-        //public ActionResult Index(string SearchString, string SearchLocation , string SearchLotto, string usr)
-        //{
-        //    bool isAuth = false;
 
-        //    if (usr != String.Empty)
-        //    {
-        //        string UserName = "";
-
-        //        string cookieName = FormsAuthentication.FormsCookieName; //Find cookie name
-        //        HttpCookie cookie = HttpContext.Request.Cookies[cookieName]; //Get the cookie by it's name
-        //        FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(cookie.Value); //Decrypt it
-        //        UserName = ticket.Name; //You have the UserName!
-
-
-        //        if (usr == UserName)
-        //        {
-        //            ViewBag.Messaggio = "BENE il cookie corrisponde!";
-        //            //ViewBag.Messaggio = personaggio;
-        //            isAuth = true;
-        //        }
-        //        else
-        //        {
-        //            ViewBag.Messaggio = "il cookie contenente lo 'username' non corrisponde allo User della queryString!";
-        //            isAuth = false;
-        //            return View("IncorrectLogin");
-        //        }
-
-        //    }
-
-
-
-        //    if (isAuth)
-        //    {
-
-        //        // Carico DropDownList
-        //        using (AutokeyEntities val = new AutokeyEntities())
-        //        {
-        //            Session["Scelta1"] = "";
-        //            var fromDatabaseEF = new SelectList(val.RPC_Cantieri_vw.ToList(), "IDCantiere", "ragioneSociale");
-        //            ViewData["RPC_Cantieri_vw"] = fromDatabaseEF;
-
-        //            var fromDatabaseEF1 = new SelectList(val.RPC_Lotti.ToList(), "ID", "Descrizione");
-        //            ViewData["RPC_Lotti"] = fromDatabaseEF1;
-
-        //        }
-
-        //        TempData["mySearch"] = SearchLocation;
-        //        TempData["myIDOperatore"] = SearchString;
-        //        TempData["myLotto"] = SearchLotto;
-
-        //        // Verifico esista il perito...
-        //        using (AutokeyEntities db = new AutokeyEntities())
-        //        {
-        //            if (String.IsNullOrEmpty(SearchString))
-        //            {
-        //                return View();
-        //            }
-        //            else
-        //            {
-        //                if (SearchString.Length == 4)
-        //                {
-        //                    try
-        //                    {
-        //                        var periti = (from s in db.AUK_tecnici
-        //                                      where s.Codice == SearchString
-        //                                      select s.ID).First();
-        //                        if (periti.ToString() != null)
-        //                        {
-        //                            var model = new Models.HomeModel();
-
-        //                            //var telai = from s in db.RPC_Telai
-        //                            //            where s.IDCantiere.ToString() == SearchLocation
-        //                            //            && s.IDOperatore.ToString() == SearchString
-        //                            //            select s;
-        //                            var telai = from s in db.RPC_Telai
-        //                                        where s.IDCantiere.ToString() == SearchLocation && s.IDLotto.ToString() == SearchLotto
-        //                                        select s;
-        //                            model.RPC_Telai = telai.ToList();
-        //                            return View("VinList", model);
-        //                        }
-        //                        else
-        //                        {
-        //                            return View();
-        //                        }
-        //                    }
-        //                    catch
-        //                    {
-        //                        ViewBag.Messaggio = "Codice non riconosciuto.";
-        //                        return View("IncorrectLogin");
-        //                    }
-
-        //                }
-        //                else
-        //                {
-        //                    ViewBag.Messaggio = "Lunghezza codice errata.";
-        //                    return View("IncorrectLogin");
-        //                }
-        //            }
-        //        }
-        //    }
-        //    else
-        //    {
-        //        return Redirect("http://192.168.20.1/Utente/Login");
-        //    }
-        //}
 
         public ActionResult Index(string SearchString, string SearchLocation, string SearchLotto, string usr)
         {
-            
-            
+            bool isAuth = false;
 
-            // Carico DropDownList
-            using (AutokeyEntities val = new AutokeyEntities())
+            if (usr != String.Empty)
             {
-                Session["Scelta1"] = "";
-                var fromDatabaseEF = new SelectList(val.RPC_Cantieri_vw.ToList(), "IDCantiere", "ragioneSociale");
-                ViewData["RPC_Cantieri_vw"] = fromDatabaseEF;
+                string UserName = "";
 
-                var fromDatabaseEF1 = new SelectList(val.RPC_Lotti.ToList(), "ID", "Descrizione");
-                ViewData["RPC_Lotti"] = fromDatabaseEF1;
+                string cookieName = FormsAuthentication.FormsCookieName; //Find cookie name
+                HttpCookie cookie = HttpContext.Request.Cookies[cookieName]; //Get the cookie by it's name
+                FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(cookie.Value); //Decrypt it
+                UserName = ticket.Name; //You have the UserName!
+                //UserName = "vig";
+                //usr = "vig";
+
+                if (usr == UserName)
+                {
+                    ViewBag.Messaggio = "BENE il cookie corrisponde!";
+                    //ViewBag.Messaggio = personaggio;
+                    isAuth = true;
+                }
+                else
+                {
+                    ViewBag.Messaggio = "il cookie contenente lo 'username' non corrisponde allo User della queryString!";
+                    isAuth = false;
+                    ViewBag.myUSer = UserName;
+                    return View("IncorrectLogin");
+                }
 
             }
 
-            TempData["mySearch"] = SearchLocation;
-            TempData["myIDOperatore"] = SearchString;
-            TempData["myLotto"] = SearchLotto;
+
+
+            if (isAuth)
+            {
+
+                // Carico DropDownList
+                using (AutokeyEntities val = new AutokeyEntities())
+                {
+                    Session["Scelta1"] = "";
+                    var fromDatabaseEF = new SelectList(val.RPC_Cantieri_vw.ToList(), "IDCantiere", "ragioneSociale");
+                    ViewData["RPC_Cantieri_vw"] = fromDatabaseEF;
+
+                    var fromDatabaseEF1 = new SelectList(val.RPC_Lotti.ToList(), "ID", "Descrizione");
+                    ViewData["RPC_Lotti"] = fromDatabaseEF1;
+
+                }
+
+                TempData["mySearch"] = SearchLocation;
+                TempData["myIDOperatore"] = SearchString;
+                TempData["myLotto"] = SearchLotto;
 
                 // Verifico esista il perito...
                 using (AutokeyEntities db = new AutokeyEntities())
@@ -161,8 +86,6 @@ namespace AutokeyRPC.Controllers
                                 var periti = (from s in db.AUK_tecnici
                                               where s.Codice == SearchString
                                               select s.ID).First();
-
-                            periti = 18;
                                 if (periti.ToString() != null)
                                 {
                                     var model = new Models.HomeModel();
@@ -198,7 +121,88 @@ namespace AutokeyRPC.Controllers
                         }
                     }
                 }
+            }
+            else
+            {
+                return Redirect("http://192.168.20.1/Utente/Login");
+            }
         }
+
+        //public ActionResult Index(string SearchString, string SearchLocation, string SearchLotto, string usr)
+        //{
+
+
+
+        //    // Carico DropDownList
+        //    using (AutokeyEntities val = new AutokeyEntities())
+        //    {
+        //        Session["Scelta1"] = "";
+        //        var fromDatabaseEF = new SelectList(val.RPC_Cantieri_vw.ToList(), "IDCantiere", "ragioneSociale");
+        //        ViewData["RPC_Cantieri_vw"] = fromDatabaseEF;
+
+        //        var fromDatabaseEF1 = new SelectList(val.RPC_Lotti.ToList(), "ID", "Descrizione");
+        //        ViewData["RPC_Lotti"] = fromDatabaseEF1;
+
+        //    }
+
+        //    TempData["mySearch"] = SearchLocation;
+        //    TempData["myIDOperatore"] = SearchString;
+        //    TempData["myLotto"] = SearchLotto;
+
+        //    // Verifico esista il perito...
+        //    using (AutokeyEntities db = new AutokeyEntities())
+        //    {
+        //        if (String.IsNullOrEmpty(SearchString))
+        //        {
+        //            return View();
+        //        }
+        //        else
+        //        {
+        //            if (SearchString.Length != 44)
+        //            {
+        //                try
+        //                {
+        //                    var periti = (from s in db.AUK_tecnici
+        //                                  where s.Codice == SearchString
+        //                                  select s.ID).First();
+
+        //                    periti = 18;
+        //                    if (periti.ToString() != null)
+        //                    {
+        //                        var model = new Models.HomeModel();
+
+        //                        //var telai = from s in db.RPC_Telai
+        //                        //            where s.IDCantiere.ToString() == SearchLocation
+        //                        //            && s.IDOperatore.ToString() == SearchString
+        //                        //            select s;
+        //                        var telai = from s in db.RPC_telai_vw
+        //                                    where s.IDCantiere.ToString() == SearchLocation //&& s.IDLotto.ToString() == SearchLotto
+        //                                    || s.IDCantiere.ToString() == "1804"
+        //                                    || s.IDCantiere.ToString() == "1805"
+        //                                    select s;
+        //                        model.RPC_Telai_vw = telai.ToList();
+        //                        return View("VinList", model);
+        //                    }
+        //                    else
+        //                    {
+        //                        return View();
+        //                    }
+        //                }
+        //                catch
+        //                {
+        //                    ViewBag.Messaggio = "Codice non riconosciuto.";
+        //                    return View("IncorrectLogin");
+        //                }
+
+        //            }
+        //            else
+        //            {
+        //                ViewBag.Messaggio = "Lunghezza codice errata.";
+        //                return View("IncorrectLogin");
+        //            }
+        //        }
+        //    }
+        //}
 
         public ActionResult About()
         {

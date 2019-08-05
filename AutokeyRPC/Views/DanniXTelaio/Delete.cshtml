@@ -6,13 +6,40 @@
 
 <h3>Cancellazione danno</h3>
 
-<h4>Vuoi davvero cancellare l'item ?</h4>
+<h4>Vuoi davvero cancellare questo item di danno ?</h4>
 <div>
     
     <hr />
     <dl class="dl-horizontal">
+
         <dt>
-            @Html.DisplayNameFor(model => model.InsertDate)
+            Parte
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RPC_Parti.Descr)
+        </dd>
+        <dt>
+            Tipo danno
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RPC_Danni.Descr)
+        </dd>
+
+        <dt>
+            Gravità
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RPC_Gravita.Descr)
+        </dd>
+
+
+
+
+        <dt>
+            Data creazione item
         </dt>
 
         <dd>
@@ -25,38 +52,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.NoteDanno)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.RPC_Danni.Descr)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.RPC_Danni.Descr)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.RPC_Gravita.Descr)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.RPC_Gravita.Descr)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.RPC_Parti.Descr)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.RPC_Parti.Descr)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.RPC_Telai.IDOperatore)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.RPC_Telai.IDOperatore)
         </dd>
 
     </dl>
